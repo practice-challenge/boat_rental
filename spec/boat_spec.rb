@@ -12,4 +12,17 @@ RSpec.describe Boat do
     expect(@kayak.price_per_hour).to eql(20)
     expect(@kayak.hours_rented).to eql(0)
   end
+
+  it "can add one hour to hours rented" do
+    expect(@kayak.hours_rented).to eql(0)
+
+    @kayak.add_hour
+
+    expect(@kayak.hours_rented).to eql(1)
+
+    @kayak.add_hour
+    @kayak.add_hour
+
+    expect(@kayak.hours_rented).to eql(3)
+  end
 end
