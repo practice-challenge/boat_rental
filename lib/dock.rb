@@ -18,6 +18,10 @@ class Dock
     }
   end
 
+  def log_hour
+    @rental_log.each { |boat, _| boat.add_hour }
+  end
+
   private
 
   def amount_calculation(boat)
@@ -35,6 +39,4 @@ class Dock
   def hourly_charge(boat)
     boat.hours_rented * boat.price_per_hour
   end
-
-
 end

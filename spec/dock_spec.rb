@@ -39,7 +39,6 @@ RSpec.describe Dock do
 
   it "can charge renter for the boat rental" do
     @dock.rent(@kayak_1, @patrick)
-    @dock.rent(@kayak_2, @patrick)
     @dock.rent(@sup_1, @eugene)
     @kayak_1.add_hour
     @kayak_1.add_hour
@@ -59,6 +58,23 @@ RSpec.describe Dock do
       :card_number => "1313131313131313",
       :amount => 45
       })
+  end
+
+  it "can increment all boats currently rented by one hour" do
+    @dock.rent(@kayak_1, @patrick)
+    @dock.rent(@kayak_2, @patrick)
+
+    @kayak_1.add_hour
+
+    expect(@kayak_1.hours_rented).to eql(1)
+    expect(@kayak_2.hours_rented).to eql(0)
+    expect(@sup_1.hours_rented).to eql(0)
+
+    @dock.log_hour
+
+    expect(@kayak_1.hours_rented).to eql(2)#
+    expect(@kayak_2.hours_rented).to eql(1)
+    expect(@sup_1.hours_rented).to eql(0)
   end
 
 
