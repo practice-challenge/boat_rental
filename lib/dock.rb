@@ -23,6 +23,11 @@ class Dock
     @rental_log.each { |boat, _| boat.add_hour }
   end
 
+  def return(boat)
+    @revenue += charge(boat)[:amount]
+    @rental_log.delete(boat)
+  end
+
   private
 
   def amount_calculation(boat)
