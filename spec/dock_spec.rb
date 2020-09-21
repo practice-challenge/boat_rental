@@ -80,9 +80,44 @@ RSpec.describe Dock do
     expect(@sup_1.hours_rented).to eql(0)
   end
 
-  it "" do
+  it "can return a rental, which also charges renter and adds to revenue" do
     @dock.rent(@kayak_1, @patrick)
     @dock.rent(@kayak_2, @patrick)
+
+    @dock.log_hour
+
+    expect(@dock.revenue).to eql(0)
+
+    @dock.rent(@canoe, @patrick)
+
+    @dock.log_hour
+
+    expect(@dock.revenue).to eql(0)
+
+    @dock.return(@kayak_1)
+    @dock.return(@kayak_2)
+
+    expect(@dock.revenue).to eql(80)
+
+    @dock.return(@canoe)
+
+    expect(@dock.revenue).to eql(105)
+
+    #ensure that we are basing revenue increments by charge method
+
+    @dock.rent(@sup_1, @eugene)
+    @dock.rent(@sup_2, @eugene)
+    @dock.log_hour
+    @dock.log_hour
+    @dock.log_hour
+    #reached max hours
+    @dock.log_hour
+    @dock.log_hour
+
+    @dock.return(@sup_1)
+    @dock.return(@sup_2)
+
+    expect(@dock.revenue).to eql(195)
   end
 
 
