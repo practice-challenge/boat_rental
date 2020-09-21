@@ -10,4 +10,31 @@ class Dock
   def rent(boat, renter)
     @rental_log[boat] = renter
   end
+
+  def charge(boat)
+    {
+      card_number: rental_log[boat].credit_card_number,
+      amount: amount_calculation(boat)
+    }
+  end
+
+  private
+
+  def amount_calculation(boat)
+    max_time_reached?(boat) ? max_charge(boat) : hourly_charge(boat)
+  end
+
+  def max_time_reached?(boat)
+    boat.hours_rented >= max_rental_time
+  end
+
+  def max_charge(boat)
+    max_rental_time * boat.price_per_hour
+  end
+
+  def hourly_charge(boat)
+    boat.hours_rented * boat.price_per_hour
+  end
+
+
 end

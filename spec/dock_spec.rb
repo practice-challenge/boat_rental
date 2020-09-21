@@ -37,7 +37,7 @@ RSpec.describe Dock do
                                      @sup_1 => @eugene})
   end
 
-  it "text" do
+  it "can charge renter for the boat rental" do
     @dock.rent(@kayak_1, @patrick)
     @dock.rent(@kayak_2, @patrick)
     @dock.rent(@sup_1, @eugene)
@@ -57,7 +57,7 @@ RSpec.describe Dock do
 
     expect(@dock.charge(@sup_1)).to eql({
       :card_number => "1313131313131313",
-      :amount => 45 
+      :amount => 45
       })
   end
 
