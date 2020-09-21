@@ -4,6 +4,8 @@ RSpec.describe Dock do
     @kayak_1 = Boat.new(:kayak, 20)
     @kayak_2 = Boat.new(:kayak, 20)
     @sup_1 = Boat.new(:standup_paddle_board, 15)
+    @sup_2 = Boat.new(:standup_paddle_board, 15)
+    @canoe = Boat.new(:canoe, 25)
     @patrick = Renter.new("Patrick Star", "4242424242424242")
     @eugene = Renter.new("Eugene Crabs", "1313131313131313")
   end
@@ -16,6 +18,7 @@ RSpec.describe Dock do
     expect(@dock.name).to eql('The Rowing Dock')
     expect(@dock.max_rental_time).to eql(3)
     expect(@dock.rental_log).to eql({})
+    expect(@dock.revenue).to eql(0)
   end
 
   it "can rent to a renter" do
@@ -75,6 +78,11 @@ RSpec.describe Dock do
     expect(@kayak_1.hours_rented).to eql(2)#
     expect(@kayak_2.hours_rented).to eql(1)
     expect(@sup_1.hours_rented).to eql(0)
+  end
+
+  it "" do
+    @dock.rent(@kayak_1, @patrick)
+    @dock.rent(@kayak_2, @patrick)
   end
 
 
